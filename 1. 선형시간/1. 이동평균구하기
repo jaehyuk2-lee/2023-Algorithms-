@@ -1,0 +1,62 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<double> GetMovingAver1(vector<double>& A, int M) {
+    vector<double> result;
+    int N = A.size();
+    
+    for(int i = M-1; i < N; i++) {
+        double Msum = 0;
+        for(int j = 0; j < M; j++) {
+            Msum += A[i-j];
+        }
+        result.push_back(Msum/M);
+    }
+    return result;
+}
+
+vector<double> GetMovingAver2(vector<double>& A, int M) {
+    vector<double> result;
+    int N = A.size();
+    
+    double PartialSum = 0;
+    
+    for(int i = 0; i < M-1; i++) {
+        PartialSum += A[i];
+    }
+    
+    for(int i = M-1; i < N; i++) {
+        PartialSum += A[i];
+        result.push_back(PartialSum/M);
+        PartialSum -= A[i-M+1];
+    }
+    return result;
+}
+
+int main() {
+    vector<double> Run;
+    vector<double>::iterator it;
+    
+    for(int i = 0; i < 8; i++) {
+        Run.push_back(i + 1);
+    }
+    
+    for(it = Run.begin(); it != Run.end(); it++) {
+        cout << *it << " ";
+    }
+    cout << endl;
+    
+    vector<double> RunMaver = GetMovingAver1(Run, 3);
+    
+    for(it = RunMaver.begin(); it != RunMaver.end(); it++) {
+        cout << *it << " ";
+    }
+    cout<< endl;
+    RunMaver.clear();
+    
+    RunMaver = GetMovingAver2(Run, 3);
+    for(it = RunMaver.begin(); it != RunMaver.end(); it++) {
+        cout << *it << " ";
+    }
+}

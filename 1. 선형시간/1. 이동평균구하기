@@ -32,7 +32,7 @@ vector<double> GetMovingAver2(vector<double>& A, int M) {
         PartialSum -= A[i-M+1];
     }
     return result;
-}
+} //최적화
 
 int main() {
     vector<double> Run;

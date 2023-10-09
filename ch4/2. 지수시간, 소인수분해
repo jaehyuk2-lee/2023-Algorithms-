@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> factor(int n) {
+    if(n==1) return vector<int> (1,1);
+    vector<int> ret;
+    for(int i = 2; n > 1; i++) {
+        while(n % i == 0) {
+            n /= i;
+            ret.push_back(i);
+        }
+    }
+    return ret;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    
+    vector<int> result = factor(n);
+    
+    for(vector<int>::iterator it = result.begin(); it != result.end(); it++){
+        cout << *it << ' ';
+    }
+}

@@ -1,0 +1,28 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void selectionSort(int* arr, int len) {
+    for(int i = 0; i < len; i++) {
+        int minIndex = i;
+        for(int j = i+1; j < len; j++) {
+            if(arr[minIndex] > arr[j]) {
+                int temp = arr[minIndex];
+                arr[minIndex] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
+
+int main() {
+    int arr[8] = {3, 1, 4, 1, 5 ,9, 2, 6};
+    
+    selectionSort(arr, 8);
+    
+    for(int i = 0; i < 8; i++) {
+        cout << arr[i] << " ";
+    }
+}
+//O(N*N)

@@ -1,0 +1,33 @@
+#include <iostream>
+#include <limits>
+using namespace std;
+
+const int MIN = numeric_limits<int>::min();
+int fastMaxSum(int* arr, int lo, int hi) {
+    if(lo == hi) return arr[lo];
+    int mid = (lo + hi)/2;
+    int left = MIN, right = MIN, sum = 0;
+    
+    for(int i = mid; i >=lo; i--) {
+        sum += arr[i];
+        left = max(left, sum);
+    }
+    
+    sum = 0;
+    for(int i = mid+1; i <= hi; i++) {
+        sum += arr[i];
+        right = max(right, sum);
+    }
+    
+    int single = max(fastMaxSum(arr, lo, mid), fastMaxSum(arr, mid+1, hi));
+    
+    return max(left + right, single);
+}
+
+int main()
+{
+    int arr[8] = {-7, 4, -3, 6, 3, -8, 3, 4};
+    
+    cout << fastMaxSum(arr, 0, 7) << endl;
+}
+//O(NlgN)

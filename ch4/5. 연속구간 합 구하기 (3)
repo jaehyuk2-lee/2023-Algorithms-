@@ -20,8 +20,9 @@ int fastMaxSum(int* arr, int lo, int hi) {
     }
     
     int single = max(fastMaxSum(arr, lo, mid), fastMaxSum(arr, mid+1, hi));
+    //재귀함수로 모든 원소와 모든 구간합 비교가능, 그중에 가장 큰값
     
-    return max(left + right, single);
+    return max(left + right, single); //걸친 구간값, 나눠진 구간 값중 가장 큰 값
 }
 
 int main()

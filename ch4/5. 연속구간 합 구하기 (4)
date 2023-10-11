@@ -6,8 +6,8 @@ const int MIN = numeric_limits<int>::min();
 int fastestMaxSum(int* arr, int size) {
     int ret = MIN, psum = 0;
     for(int i = 0; i < size; i++) {
-        psum = max(psum, 0) + arr[i];
-        ret = max(psum, ret);
+        psum = max(psum, 0) + arr[i]; //구간합보다 큰 수부터 구간합 다시 구하기
+        ret = max(psum, ret); //최대 구간합 최신화
     }
     return ret;
 }

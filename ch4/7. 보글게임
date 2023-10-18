@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+char board[5][5] =
+{
+    {'U','R','L','P','M'},
+    {'X','P','R','E','T'},
+    {'G','I','A','E','T'},
+    {'X','T','N','Z','Y'},
+    {'X','O','Q','R','S'}
+};
+
+bool inRange(int a, int b) {
+    if(a < 0 || a > 4) return false;
+    else if(b < 0 || b > 4) return false;
+    else return true;
+}
+
+bool hasWord(int x, int y, const string& word) {
+    int dx[8] = {-1, 0 , 1, -1,  0,  1, 1, -1};
+    int dy[8] = { 1, 1,  1, -1, -1, -1, 0,  0};
+    
+    if(!inRange(x,y)) { return false; }
+    if(board[x][y] != word[0]) { return false; }
+    if(word.size() == 1) { return true; }
+    
+    for(int direction = 0; direction < 8; direction++) {
+        int nextX = x + dx[direction]; int nextY = y + dy[direction];
+        if(hasWord(nextX, nextY, word.substr(1))) return true;
+    }
+    
+    return false;
+}
+
+int main() {
+    string word = "PRETTY";
+    
+    if(hasWord(1, 1, word)) {
+        cout << "true" << endl;
+    }
+    else cout << "false" << endl;
+}

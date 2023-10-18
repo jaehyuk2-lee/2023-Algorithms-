@@ -2,25 +2,25 @@
 #include <vector>
 using namespace std;
 
-void printPicked(vector<int>& picked) {
+void Print(const vector<int>& picked) {
     for(int i = 0; i < picked.size(); i++) {
         cout << picked[i] << " ";
     }
     cout << endl;
 }
 
-void pick(int n, vector<int>& picked, int toPick) {
-    if(toPick == 0) {printPicked(picked); return;}
+void Combination(int n, vector<int>& picked, int toPick) {
+    if(toPick == 0) Print(picked);
     int smallest = picked.empty() ? 0 : picked.back() + 1;
     
     for(int next = smallest; next < n; next++) {
         picked.push_back(next);
-        pick(n, picked, toPick - 1);
+        Combination(n, picked, toPick - 1);
         picked.pop_back();
     }
 }
 
 int main() {
     vector<int> v;
-    pick(7, v, 4);
+    Combination(7, v, 4); // => 7C4 0~7 까지에서 4개 뽑기
 }

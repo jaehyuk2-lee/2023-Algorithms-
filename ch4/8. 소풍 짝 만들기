@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+bool areFriend[10][10];
+
+int cntPair(bool* picked) {
+    bool finished = true;
+    int size = sizeof(picked);
+    for (int i = 0; i < size; i++) if(!picked[i]) finished = false;
+    if(finished) return 1;
+    
+    int ret = 0;
+    
+    for(int i = 0; i < size; i++) {
+        for(int j = 0; j < size; j++) {
+            if(!picked[i] && !picked[j] && areFriend[i][j]) {
+                picked[i] = picked[j] = true;
+                ret += cntPair(picked);
+                picked[i] = picked[j] = false;
+            }
+        }
+    }
+    
+    return ret;
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    
+    int* arr = new int[m * 2];
+    for(int i = 0; i < m * 2; i++) {
+        cin >> arr[i];
+    }
+    
+    for(int i = 0; i < m*2; i += 2) {
+       areFriend[arr[i]][arr[i+1]] = areFriend[arr[i+1]][arr[i]] = true; 
+    }
+    
+    for(int i = 0; i < 10; i++) {
+        for(int j = 0; j < 10; j++) {
+            cout << areFriend[i][j];
+        }
+        cout << endl;
+    }
+}

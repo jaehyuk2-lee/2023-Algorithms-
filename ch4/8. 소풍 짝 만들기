@@ -20,7 +20,64 @@ int cntPair(bool picked[10]) {
             ret += cntPair(picked);
             picked[front] = picked[pair] = false;
         }
+    }#include <iostream>
+using namespace std;
+
+bool areFriend[10][10];
+int c, n, m;
+    
+int cntPair(bool picked[10]) {
+    int front = -1;
+    for(int i = 0; i < n; i++) {
+        if(!picked[i]) {
+            front = i;
+            break;
+        }
     }
+    if(front == -1) return 1;
+    int ret = 0;
+    for(int pair = front + 1; pair < n; pair++){
+        if(!picked[pair]&&areFriend[front][pair]){
+            picked[front] = picked[pair] = true;
+            ret += cntPair(picked);
+            picked[front] = picked[pair] = false;
+        }
+    }
+    return ret;
+}
+
+int main() {
+    cin >> c;
+    while(c > 1) {
+        n = m = 0;
+        cin >> n >> m;
+    
+        int* arr = new int[m * 2];
+        for(int i = 0; i < m * 2; i++) {
+            cin >> arr[i];
+        }
+    
+        for(int i = 0; i < m*2; i += 2) {
+           areFriend[arr[i]][arr[i+1]] = areFriend[arr[i+1]][arr[i]] = true; 
+        }
+    
+        for(int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10; j++) {
+                cout << areFriend[i][j];
+            }
+            cout << endl;
+        }
+        cout << endl;
+    
+        bool* picked = new bool[n];
+        for(int i = 0; i < n; i++) {
+            picked[i] = false;
+        }
+    
+        cout << cntPair(picked) << endl;
+        c--;
+        }
+}
     return ret;
 }
 

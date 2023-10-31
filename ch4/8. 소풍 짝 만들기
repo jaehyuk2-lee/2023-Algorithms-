@@ -2,30 +2,29 @@
 using namespace std;
 
 bool areFriend[10][10];
-
-int cntPair(bool* picked) {
-    bool finished = true;
-    int size = sizeof(picked);
-    for (int i = 0; i < size; i++) if(!picked[i]) finished = false;
-    if(finished) return 1;
+int n, m;
     
-    int ret = 0;
-    
-    for(int i = 0; i < size; i++) {
-        for(int j = 0; j < size; j++) {
-            if(!picked[i] && !picked[j] && areFriend[i][j]) {
-                picked[i] = picked[j] = true;
-                ret += cntPair(picked);
-                picked[i] = picked[j] = false;
-            }
+int cntPair(bool picked[10]) {
+    int front = -1;
+    for(int i = 0; i < n; i++) {
+        if(!picked[i]) {
+            front = i;
+            break;
         }
     }
-    
+    if(front == -1) return 1;
+    int ret = 0;
+    for(int pair = front + 1; pair < n; pair++){
+        if(!picked[pair]&&areFriend[front][pair]){
+            picked[front] = picked[pair] = true;
+            ret += cntPair(picked);
+            picked[front] = picked[pair] = false;
+        }
+    }
     return ret;
 }
 
 int main() {
-    int n, m;
     cin >> n >> m;
     
     int* arr = new int[m * 2];
@@ -43,4 +42,12 @@ int main() {
         }
         cout << endl;
     }
+    cout << endl;
+    
+    bool* picked = new bool[n];
+    for(int i = 0; i < n; i++) {
+        picked[i] = false;
+    }
+    
+    cout << cntPair(picked) << endl;
 }

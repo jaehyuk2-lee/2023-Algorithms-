@@ -4,8 +4,10 @@ using namespace std;
 bool areFriend[10][10];
 int c, n, m;
     
-int cntPair(bool picked[10]) {
+int cntPair(bool* picked) {
     int front = -1;
+    int ret = 0;
+    
     for(int i = 0; i < n; i++) {
         if(!picked[i]) {
             front = i;
@@ -13,11 +15,13 @@ int cntPair(bool picked[10]) {
         }
     }
     if(front == -1) return 1;
-    int ret = 0;
+    
     for(int pair = front + 1; pair < n; pair++){
         if(!picked[pair]&&areFriend[front][pair]){
+            cout << "(" << front << ", " << pair << ")" << " ";
             picked[front] = picked[pair] = true;
             ret += cntPair(picked);
+            cout << endl;
             picked[front] = picked[pair] = false;
         }
     }
@@ -54,6 +58,12 @@ int main() {
     
         cout << cntPair(picked) << endl;
         delete[] arr;
+        delete[] picked;
+        for(int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10; j++) {
+                areFriend[i][j] = false;
+            }
+        }
         c--;
         }
 }

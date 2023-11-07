@@ -68,7 +68,5 @@ int main() {
     }
     
     cout << cover(board) << endl;
-    cout << i << endl;
-    
     }
 }

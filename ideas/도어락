@@ -1,1 +1,28 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
 
+void Unlock (vector<char> pwd) {
+    srand((unsigned int)time(NULL));
+    vector<bool> num(10);
+    
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 3; j++) {
+            if((i == 4)&&(j==0)) cout << "* ";
+            else if((i == 4)&&(j==2)) cout << "# ";
+            else cout << rand() % 9;
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<char> pwd(n);
+    
+    for(int i = 0; i < pwd.size(); i++) {
+        cin >> pwd[i];
+    }
+}

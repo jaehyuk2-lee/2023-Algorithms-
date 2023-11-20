@@ -9,19 +9,28 @@ int n;
 int dist[10][10];
 
 int shortestPath(vector<int>& path, vector<bool>& visited, int currentLenth) {
+    cout << "path: ";
+    for(int i = 0; i < path.size(); i++) {
+        cout << path[i] << ' ';
+    } cout << endl;
+    cout << "lenth: " << currentLenth << endl;
+    cout << endl;
+        
     if(path.size() == n) return currentLenth + dist[path[0]][path.back()];
     
     int ret = INF;
     
     for(int next = 0; next < n; ++next) {
         if(visited[next]) continue;
+        
         int here = path.back();
         path.push_back(next);
         visited[next] = true;
         
-        int cand = shortestPath(path, visited, currentLenth + dist[here][next]);
         
-        ret = min(ret, cand);
+        int candidate = shortestPath(path, visited, currentLenth + dist[here][next]);
+        
+        ret = min(ret, candidate);
         visited[next] = false;
         path.pop_back();
     }
@@ -36,6 +45,7 @@ int main() {
     for(int i = 0; i < n; i++) {
         for(int j = i + 1; j < n; j++) {
             dist[i][j] = (rand() % 9) + 1;
+            dist[j][i] = dist[i][j];
         }
     }
     
@@ -46,9 +56,12 @@ int main() {
         }
         cout << endl;
     }
+    cout << endl;
     
-    vector<int> path(n);
+    vector<int> path;
     vector<bool> visited(n);
+    path.push_back(0);
+    visited[0] = true;
     
     cout << shortestPath(path, visited, 0) << endl;
 }

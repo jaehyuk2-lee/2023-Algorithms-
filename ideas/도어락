@@ -1,6 +1,11 @@
 #include <iostream>
 #include <vector>
+#include <random>
 using namespace std;
+
+random_device rd;
+mt19937 gen(rd());
+uniform_int_distribution<int> dis(0, 9);
 
 class DoorLock {
 public:
@@ -9,7 +14,7 @@ public:
     
     void SetPwd(int a) {
         for(int i = 0; a != 0; i++) {
-            password.insert(password.begin(),(a % 10));
+            password.insert(password.begin(), (a % 10));
             a /= 10;
         }
     }
@@ -18,15 +23,52 @@ public:
         for(int i = 0; i < password.size(); i++) {
             cout << password[i];
         }
+        cout << endl;
+    }
+    
+    
+    void SetScreen() {
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 3; j++) {
+                int num = dis(gen);
+                if((i==3&&j==0)||(i==3&&j==2)) continue;
+                else if(picked[num]==1) {
+                    j--;
+                    continue;
+                }
+                screen[i][j] = num;
+                picked[num] = 1;
+            }
+        }
+    }
+    
+    void PrintScreen() {
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 3; j++) {
+                if(i==3&&j==0){
+                    cout << '*' << " "; continue;
+                }
+                else if(i==3&&j==2){
+                    cout << '#' << " "; continue;
+                }
+                
+                cout << screen[i][j] << " ";
+            }
+            cout << endl;
+        }
     }
     
 private:
     vector<int> password;
-    int screen[4][3];
+    vector<int> input;
+    bool picked[10] = {0};
+    int screen[4][3] = {0};
 };
 
 int main() {
     DoorLock Home;
-    Home.SetPwd(2110);
+    Home.SetPwd(3141592);
     Home.PrintPwd();
+    Home.SetScreen();
+    Home.PrintScreen();
 }

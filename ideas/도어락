@@ -1,28 +1,32 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib>
-#include <ctime>
 using namespace std;
 
-void Unlock (vector<char> pwd) {
-    srand((unsigned int)time(NULL));
-    vector<bool> num(10);
+class DoorLock {
+public:
+    DoorLock() {
+    }
     
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 3; j++) {
-            if((i == 4)&&(j==0)) cout << "* ";
-            else if((i == 4)&&(j==2)) cout << "# ";
-            else cout << rand() % 9;
+    void SetPwd(int a) {
+        for(int i = 0; a != 0; i++) {
+            password.insert(password.begin(),(a % 10));
+            a /= 10;
         }
     }
-}
+    
+    void PrintPwd() {
+        for(int i = 0; i < password.size(); i++) {
+            cout << password[i];
+        }
+    }
+    
+private:
+    vector<int> password;
+    int screen[4][3];
+};
 
 int main() {
-    int n;
-    cin >> n;
-    vector<char> pwd(n);
-    
-    for(int i = 0; i < pwd.size(); i++) {
-        cin >> pwd[i];
-    }
+    DoorLock Home;
+    Home.SetPwd(2110);
+    Home.PrintPwd();
 }

@@ -68,11 +68,11 @@ public:
             SetScreen();
             PrintScreen();
             cin >> y >> x;
-            if((y!=4)||(x!=1)) {
+            if(!((y==4)&&(x==1))) {
                 input.push_back(screen[y-1][x-1]);
             }
             cout << endl;
-        } while(y!=4||x!=1);
+        } while(!((y==4)&&(x==1)));
         
         if(password == input) cout << "Unlock" << endl;
         else cout << "Wrong password" << endl;

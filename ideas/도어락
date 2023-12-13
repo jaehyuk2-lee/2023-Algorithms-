@@ -90,4 +90,5 @@ int main() {
     Home.SetPwd(2110);
     Home.PrintPwd();
     Home.Unlock();
+    //몇 번째 줄 몇번 째 칸인지 띄어쓰기로 입력
 }
